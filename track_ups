@@ -9,7 +9,7 @@ do
 
   curl -O /dev/null -o ups.new $tracking_url 2>/dev/null
   if [ -f ups.old ] && [ -f ups.new ] && [ `diff ups.old ups.new | wc -l` -gt 60 ]; then
-    say "News from yout package!"
+    say "News from your package!"
     open $tracking_url
   fi
   sleep 60
