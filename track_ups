@@ -1,0 +1,16 @@
+#!/bin/bash
+
+tracking_url="http://wwwapps.ups.com/WebTracking/processRequest?HTMLVersion=5.0&Requester=NES&AgreeToTermsAndConditions=yes&loc=de_DE&tracknum=$1"
+while true
+do
+  if [ -f ups.new ]; then
+    mv ups.new ups.old
+  fi
+
+  curl -O /dev/null -o ups.new $tracking_url 2>/dev/null
+  if [ -f ups.old ] && [ -f ups.new ] && [ `diff ups.old ups.new | wc -l` -gt 60 ]; then
+    say "News from yout package!"
+    open $tracking_url
+  fi
+  sleep 60
+done
